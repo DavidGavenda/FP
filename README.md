@@ -1,4 +1,8 @@
-# FP
+# FP - Tím 12
+  Peter Andrejko
+  Dávid Gavenda
+  Marek Dráb
+  Marek Klímo
 
 stack exec -- pacman --noconfirm -Sy msys2-keyring
 
