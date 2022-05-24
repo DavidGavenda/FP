@@ -72,10 +72,7 @@ removeNewlines = reverse . dropWhile (=='\n') . reverse
 
 -- https://stackoverflow.com/questions/30242668/remove-characters-from-string-in-haskell
 removeSpecialChars :: String -> String
-removeSpecialChars = filter (\x -> x `elem` ['0'..'9'] ++ [' '] ++ ['a'..'z'] ++ ['A'..'Z'])
-
-removeNumbers :: [Char] -> [Char]
-removeNumbers = filter (not . (`elem` "0123456789"))
+removeSpecialChars = filter (\x -> x `elem` [' '] ++ ['a'..'z'] ++ ['A'..'Z'])
 
 removeUpperLetters :: [[Char]] -> [[Char]]
 removeUpperLetters = filter (not . any isUpper)
@@ -116,8 +113,7 @@ createGraph input graph mapVar =
             html <- runX $ docHtml >>> css "body" //> neg (css "script") //> getText
             let removedDiacritics = unlines (map removeDiacritics (cleanBody html))
             let removedNewLines = removeNewlines removedDiacritics
-            let removedNumbers = removeNumbers removedNewLines
-            let removedSpecials = removeSpecialChars removedNumbers
+            let removedSpecials = removeSpecialChars removedNewLines
             let splitWords = splitIntoWords removedSpecials
             let removedEmpty = removeEmptyList splitWords
             let removedUpper = removeUpperLetters removedEmpty
@@ -125,6 +121,7 @@ createGraph input graph mapVar =
             let sortedHtml = sortList removedDuplicates
 
             url <- urlToIOStr m
+            print url
             let newGraph = insertEdge graph cleanUrls
             let newMap = insertElemToMap mapVar url sortedHtml
             createGraph input newGraph newMap
