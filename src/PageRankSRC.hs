@@ -87,7 +87,9 @@ sortPageRank = sortBy (comparing snd)
 
 createJson :: [(String, Double)] -> IO ()
 createJson (x:xs) = do
-  let json = "{\"url\":\"" ++ fst x ++ "\",\"value\":" ++ show (snd x) ++ "}\n"
-  appendFile "output.jsonl" json
-  createJson xs
+    let file = "output.jsonl"
+    let string = "{\"url\":\"" ++ fst x ++ "\",\"pagerank\":" ++ show (snd x) ++ "}\n"
+    writeFile file string
+    print (length xs)
+    createJson xs
 createJson [] = return ()
