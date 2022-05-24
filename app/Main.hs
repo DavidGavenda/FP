@@ -50,8 +50,8 @@ main = do
     print "Task 7/10 done"
     let sortedPageRank = sortPageRank (Map.toList finalPageRankValues)
     print "Task 8/10 done"
-    createJson sortedPageRank
-    print "Task 9/10 done"
+    --createJson sortedPageRank
+    --print "Task 9/10 done"
     fileWriteMap resultIndex
     print "Task 10/10 done"
     hClose file
