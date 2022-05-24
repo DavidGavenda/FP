@@ -24,8 +24,10 @@ insertElemToMap map word list
     where
       head = headList list
       tail = tailList list
-
+  
 fileWriteMap :: Map.Map String [String] -> IO ()
-fileWriteMap map = do
+fileWriteMap mapVar = do
   let file = "indexer.jsonl"
-  writeFile file (foldl (\x y -> x ++ show y ++ "\n") "" (Map.toList map))
+  let mapVarStr = Map.toList mapVar
+  let string = (concat . map (\(x, y) -> "{\"word\":\"" ++ x ++ "\",\"urls\":[\"" ++ unwords y ++ "\"]}\n")) mapVarStr
+  writeFile file string
